@@ -7,5 +7,4 @@ sftp://keitaro/usr/share/php SSH | Keitaro/php
 sftp://keitaro/var/www/keitaro SSH | Keitaro/www
 sftp://crm/var/www SSH | CRM
 sftp://blum/root SSH | Blum
-sftp://oraldent/www/htdocs/w01d0ae1/oral-dent.de SSH | Oraldent
 sftp://innparser/ SSH | INNParser
