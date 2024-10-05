@@ -3,8 +3,3 @@ file:///home/yabai/Downloads Downloads
 file:///home/yabai/Pictures
 file:///home/yabai/Pictures/Screenshots
 file:///home/yabai/Projects
-sftp://keitaro/usr/share/php SSH | Keitaro/php
-sftp://keitaro/var/www/keitaro SSH | Keitaro/www
-sftp://crm/var/www SSH | CRM
-sftp://blum/root SSH | Blum
-sftp://innparser/ SSH | INNParser
