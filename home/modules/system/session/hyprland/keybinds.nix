@@ -28,7 +28,7 @@
 
       "SUPER SHIFT, L, exec, run-powermenu"
 
-      "SUPER, L, exec, loginctl lock-session"
+      "SUPER, L, exec, ${config.xdg.dataHome}/bin/switch-layout 0 && loginctl lock-session"
 
       ### utility apps ###
 

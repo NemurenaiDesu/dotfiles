@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   monitors = {
@@ -8,8 +8,6 @@ let
 in
 {
   _module.args.monitors = monitors;
-
-  programs.btop.package = pkgs.btop-rocm;
 
   wayland.windowManager.hyprland.settings = {
     monitor = [

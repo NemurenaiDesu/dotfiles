@@ -36,7 +36,7 @@
 
     settings = {
       system_tray = false;
-      output_name = "1";
+      output_name = "0";
     };
 
     applications = {
@@ -47,7 +47,7 @@
           exclude-global-prep-cmd = "false";
           prep-cmd = [
             {
-              do = "hyprctl dispatch focusmonitor 1";
+              do = "hyprctl dispatch focusmonitor 0";
               undo = "";
             }
             {

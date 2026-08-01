@@ -23,8 +23,8 @@ let
 
   basefolder = {
     fsWatcherEnabled = true;
-    fsWatcherDelayS = 1;
-    fsWatcherTimeoutS = 0;
+    fsWatcherDelayS = 5;
+    fsWatcherTimeoutS = 3600;
   };
 in
 {

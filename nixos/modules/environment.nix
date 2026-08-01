@@ -134,6 +134,8 @@
     ++ lib.optionals (hasRole "desktop") (
       with pkgs;
       [
+        uwsm
+
         hyprland
         hyprlang
         hyprlock
@@ -169,9 +171,9 @@
         networkmanagerapplet
         qpwgraph
         remmina
-        veracrypt
         udiskie
         gnome-disk-utility
+        mission-center
 
         virt-manager
         qemu_full

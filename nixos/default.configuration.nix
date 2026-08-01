@@ -1,6 +1,5 @@
 {
   hasRole,
-  config,
   inputs,
   host,
   pkgs,
@@ -22,6 +21,7 @@
     ./modules/keyd.nix
     ./modules/audio.nix
     ./modules/syncthing.nix
+    ./modules/prometeus.nix
     ./modules/networking.nix
     ./modules/environment.nix
   ]
@@ -60,7 +60,8 @@
   };
 
   boot.initrd.stage1Greeting = "";
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
+  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+  boot.extraModprobeConfig = ''options v4l2loopback video_nr=0 card_label="DroidCam" exclusive_caps=1'';
   boot.kernelModules = [ "v4l2loopback" ];
   boot.kernelParams = [ "preempt=full" ];
   boot.tmp.cleanOnBoot = true;
@@ -71,6 +72,7 @@
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
+  virtualisation.oci-containers.backend = "docker";
 
   security.polkit.enable = true;
   security.pam.services.su.enableGnomeKeyring = hasRole "desktop";
@@ -85,11 +87,12 @@
 
   services.dbus.enable = true;
   services.libinput.enable = true;
-  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = hasRole "desktop";
   services.journald.extraConfig = "MaxRetentionSec=7day";
 
   services.gvfs.enable = true;
   services.upower.enable = true;
+  services.fstrim.enable = true;
   services.udisks2.enable = true;
   services.playerctld.enable = true;
 
@@ -103,5 +106,4 @@
   programs.dconf.enable = hasRole "desktop";
   programs.hyprlock.enable = hasRole "desktop";
   programs.hyprland.enable = hasRole "desktop";
-  programs.hyprland.withUWSM = hasRole "desktop";
 }

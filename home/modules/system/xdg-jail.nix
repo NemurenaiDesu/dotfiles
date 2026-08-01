@@ -145,13 +145,12 @@ in
     (enjail unstable.spotify)
 
     (enjail unstable.vscode-fhs)
-    (enjail unstable.code-cursor-fhs)
-    (enjail unstable.antigravity-fhs)
 
     (enjail unstable.codex)
     (enjail unstable.opencode)
     (enjail unstable.cursor-cli)
     (enjail unstable.claude-code)
+    (enjail unstable.antigravity-cli)
 
     # ---------- Soft jail ---------- #
 

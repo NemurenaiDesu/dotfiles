@@ -39,7 +39,7 @@
           WantedBy = [ "snapclients.target" ];
         };
         Service = {
-          ExecStart = "${pkgs.snapcast}/bin/snapclient --host ${lib.escapeShellArg addr}";
+          ExecStart = "${pkgs.snapcast}/bin/snapclient 'tcp://${addr}:1704' --logfilter 'fatal'";
           Restart = "always";
           RestartSec = "10s";
         };

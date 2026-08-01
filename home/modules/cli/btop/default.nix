@@ -1,6 +1,16 @@
+{ pkgs, host, ... }:
+
+let
+  vendorPkgs = {
+    amd = pkgs.btop-rocm;
+    nvidia = pkgs.btop-cuda;
+  };
+in
 {
   programs.btop = {
     enable = true;
+
+    package = vendorPkgs.${host.gpuVendor} or pkgs.btop;
 
     extraConfig = ''
       color_theme = "catppuccin_mocha"
