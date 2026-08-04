@@ -45,9 +45,9 @@ let
       if [[ -z $arg ]]; then
           if [[ "$workspace_id" == "special"* ]]; then
               IFS=":" read -r workspace special_workspace_name <<<"$workspace_id"
-              hyprctl dispatch togglespecialworkspace "$special_workspace_name" > /dev/null
+              hyprctl dispatch "hl.dsp.workspace.toggle_special('$special_workspace_name')" 1>/dev/null
           else
-              hyprctl dispatch workspace "$workspace_id" > /dev/null
+              hyprctl dispatch "hl.dsp.focus({ workspace = '$workspace_id' })" 1>/dev/null
           fi
       fi
 
@@ -55,7 +55,7 @@ let
       WorkspaceLastWindow="''${WorkspaceLastWindow//\"/}"
 
       if [[ -z $WorkspaceLastWindow ]]; then
-          hyprctl dispatch exec "[workspace $workspace_id silent]" "$command" > /dev/null
+          hyprctl dispatch "hl.dsp.exec_cmd('$command', { workspace = '$workspace_id silent' })" 1>/dev/null
       fi
     '';
 

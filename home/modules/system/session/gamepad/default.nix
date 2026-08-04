@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   gamepad-keybind-daemon-pkg =
@@ -102,16 +107,27 @@ let
   gamepad-mode-key-action-pkg = pkgs.writeShellScriptBin "gamepad-mode-key-action" ''
     pidof steam 2>/dev/null && echo "Steam is already running pid:$(pidof steam)" && exit
 
-    hyprctl dispatch workspace 9 1>/dev/null
-    hyprctl dispatch exec "[workspace 9]" "steam -bigpicture" 1>/dev/null
+    hyprctl dispatch "hl.dsp.focus({ workspace = '3' })" 1>/dev/null
+    hyprctl dispatch "hl.dsp.exec_cmd('steam -bigpicture', { workspace = '9' })" 1>/dev/null
+
 
     notify-send -c gaming 'Launching steam...' --icon '${config.xdg.dataHome}/assets/icons/steam.png'
   '';
   gamepad-mode-key-action = "${gamepad-mode-key-action-pkg}/bin/gamepad-mode-key-action";
 in
 {
-  wayland.windowManager.hyprland.settings.exec-once = [
-    # Listens for gamepad events (hotplug supported) and launches Steam on BTN_MODE if not running
-    "uwsm app -- ${gamepad-keybind-daemon} BTN_MODE ${gamepad-mode-key-action}"
-  ];
+
+  # Listens for gamepad events (hotplug supported) and launches Steam on BTN_MODE if not running
+  wayland.windowManager.hyprland.settings = {
+    on = {
+      _args = [
+        "hyprland.start"
+        (lib.generators.mkLuaInline ''
+          function() 
+            hl.exec_cmd("uwsm app -- ${gamepad-keybind-daemon} BTN_MODE ${gamepad-mode-key-action}") 
+          end
+        '')
+      ];
+    };
+  };
 }

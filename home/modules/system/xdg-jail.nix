@@ -151,6 +151,7 @@ in
     (enjail unstable.cursor-cli)
     (enjail unstable.claude-code)
     (enjail unstable.antigravity-cli)
+    (enjail unstable.python314Packages.huggingface-hub)
 
     # ---------- Soft jail ---------- #
 

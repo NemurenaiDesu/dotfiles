@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 let
   monitors = {
     central = "DP-1";
@@ -9,14 +11,32 @@ in
 
   wayland.windowManager.hyprland.settings = {
     monitor = [
-      ", preferred@auto, 0x0, 1"
-      "${monitors.central}, 1920x1080@144, 0x0, 1"
-      "${monitors.left}, 1920x1080@144, -1920x0, 1"
-      # "${monitors.left}, 1920x1080@144, 0x0, 1, mirror, DP-1"
+      {
+        _args = [
+          (lib.generators.mkLuaInline ''{ output = "", mode = "preferred@auto", position = "0x0", scale = "1" }'')
+        ];
+      }
+      {
+        _args = [
+          (lib.generators.mkLuaInline ''{ output = "${monitors.central}", mode = "1920x1080@144", position = "0x0", scale = "1" }'')
+        ];
+      }
+      {
+        _args = [
+          (lib.generators.mkLuaInline ''{ output = "${monitors.left}", mode = "1920x1080@144", position = "-1920x0", scale = "1" }'')
+        ];
+      }
     ];
 
-    exec-once = [
-      "uwsm app -- openrgb --startminimized --profile default"
-    ];
+    on = {
+      _args = [
+        "hyprland.start"
+        (lib.generators.mkLuaInline ''
+          function() 
+            hl.exec_cmd("uwsm app -- openrgb --startminimized --profile default") 
+          end
+        '')
+      ];
+    };
   };
 }

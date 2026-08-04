@@ -1,9 +1,7 @@
 {
-  _module.args.monitors = { };
-
-  wayland.windowManager.hyprland.settings = {
-    monitor = [
-      ", preferred@auto, 0x0, 1"
-    ];
+  _module.args.monitors = { } // {
+    hyprlandConfig = ''
+      hl.monitor({ output = "", mode = "preferred@auto", position = "0x0", scale = "1" })
+    '';
   };
 }

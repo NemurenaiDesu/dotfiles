@@ -1,0 +1,7 @@
+{
+    "workspace": {
+        "library": [
+            "$XDG_DATA_HOME/hyprland.stubs.lua"
+        ]
+    }
+}

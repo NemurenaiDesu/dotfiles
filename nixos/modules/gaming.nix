@@ -47,7 +47,7 @@
           exclude-global-prep-cmd = "false";
           prep-cmd = [
             {
-              do = "hyprctl dispatch focusmonitor 0";
+              do = "hyprctl dispatch 'hl.dsp.focus({ monitor = 0 })'";
               undo = "";
             }
             {
