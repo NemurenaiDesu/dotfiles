@@ -44,18 +44,18 @@ in
   };
 
   # Make a "default" sink that outputs to the default sink for independent volume control in system and snapcast
-  xdg.configFile."pipewire/pipewire.conf.d/99-virtual-sink.conf".text = ''
-    context.modules = [
-      {
-        name = "libpipewire-module-loopback"
-        args = {
-          node.description = "Default"
-          capture.props = {
-            "node.name" = "default"
-            "media.class" = "Audio/Sink"
-          }
-        }
-      }
-    ]
-  '';
+  # xdg.configFile."pipewire/pipewire.conf.d/99-virtual-sink.conf".text = ''
+  #   context.modules = [
+  #     {
+  #       name = "libpipewire-module-loopback"
+  #       args = {
+  #         node.description = "Default"
+  #         capture.props = {
+  #           "node.name" = "default"
+  #           "media.class" = "Audio/Sink"
+  #         }
+  #       }
+  #     }
+  #   ]
+  # '';
 }

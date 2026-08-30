@@ -13,8 +13,6 @@ hl.bind("SUPER + SHIFT + L", hl.dsp.exec_cmd("run-powermenu"))
 
 hl.bind("SUPER + L", hl.dsp.exec_cmd(nix.binPath .. "/switch-layout 0 && loginctl lock-session"))
 
-hl.bind("SHIFT + SHIFT_L", hl.dsp.exec_cmd("wayle notify dismiss-all"), { release = true })
-
 
 
 ------------------------ utilities ------------------------
@@ -183,12 +181,12 @@ hl.bind("ALT + SHIFT + 3", hl.dsp.exec_cmd(nix.binPath .. "/switch-layout 2"))
 
 ------------------------ functional keys ------------------------
 
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(nix.binPath .. "/brightness --dec"))
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(nix.binPath .. "/brightness --inc"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(nix.binPath .. "/brightness --dec"), { repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(nix.binPath .. "/brightness --inc"), { repeating = true })
 
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(nix.binPath .. "/volume --inc"))
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(nix.binPath .. "/volume --dec"))
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(nix.binPath .. "/volume --inc"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(nix.binPath .. "/volume --dec"), { repeating = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd(nix.binPath .. "/volume --toggle-mic"))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(nix.binPath .. "/volume --toggle"))
 

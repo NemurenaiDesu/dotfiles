@@ -51,8 +51,9 @@
       tldr
       lsd
       man-db
-      ncdu
+      gdu
       trash-cli
+      rustnet
 
       bun
       biome
@@ -190,6 +191,7 @@
         wev
 
         eog
+        kooha
         satty
         grimblast
 

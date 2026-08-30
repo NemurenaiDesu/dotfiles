@@ -1,6 +1,20 @@
 { config, pkgs, ... }:
 
 {
+  home.sessionVariables.FZF_DEFAULT_OPTS = builtins.replaceStrings [ "\n" ] [ " " ] ''
+    --bind ctrl-backspace:backward-kill-word 
+
+    --bind ctrl-right:forward-word 
+    --bind ctrl-left:backward-word 
+
+    --bind pgup:page-up 
+    --bind pgdn:page-down 
+  '';
+
+  home.sessionVariables.FZF_TMUX_HEIGHT = "60%";
+
+  home.sessionVariables.FZF_DEFAULT_COMMAND = "${pkgs.fd}/bin/fd --strip-cwd-prefix --hidden --exclude .git";
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -98,13 +112,6 @@
         zellij attach --create "$(sed "s|$HOME/||g; s|/| > |g" <<< "$PWD")"
       }
 
-      fzf-history-widget() {
-        local selected
-        selected="$(history 0 | tac | fzf --ansi --height=10 --min-height=2 --query="$LBUFFER")" || return
-        LBUFFER="$(echo "$selected" | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//')"
-        zle reset-prompt
-      }
-
       edit-command-line-editor() {
         VISUAL=$EDITOR zle edit-command-line
       }
@@ -118,7 +125,6 @@
       select-word-style bash
 
       zle -N toggle-sudo
-      zle -N fzf-history-widget
       zle -N edit-command-line
       zle -N edit-command-line-editor
 
@@ -142,17 +148,21 @@
 
       zstyle ":completion:*" completer _extensions _complete #_approximate
       zstyle ":completion:*" menu select
-      zstyle ":completion:*:*:*:*:descriptions" format "%F{green}-- %d --%f"
+      zstyle ":completion:*:*:*:*:descriptions" format ""
       zstyle ":completion:*" group-name ""
       zstyle ":completion:*:*:-command-:*:*" group-order alias builtins functions commands
       zstyle ":completion:*" use-cache on
       zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}"
       zstyle ":completion:*" list-colors "''${(s.:.)LS_COLORS}"
 
+      zstyle ':fzf-tab:*' fzf-flags ${config.home.sessionVariables.FZF_DEFAULT_OPTS}
+      zstyle ':fzf-tab:*' disabled-on files
+      zstyle ':fzf-tab:*' show-group none
+      zstyle ':fzf-tab:*' prefix ""
+
 
       bindkey "^[s" toggle-sudo
       bindkey "^f" autosuggest-accept
-      bindkey "^r" fzf-history-widget
       bindkey '^e' edit-command-line-editor
 
       bindkey "^[[3~" delete-char
@@ -166,6 +176,9 @@
 
       bindkey "^Z" undo
       bindkey "^Y" redo
+
+      bindkey "$terminfo[kcuu1]" history-substring-search-up
+      bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 
@@ -218,8 +231,19 @@
 
 
 
+      export FZF_COMPLETION_TRIGGER="=";
+      export FZF_COMPLETION_DIR_OPTS="--walker dir,follow,hidden";
+      export FZF_COMPLETION_PATH_OPTS="--walker file,dir,follow,hidden";
+
+
+
+      source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.zsh
+
+
       eval "$(zoxide init --cmd cd zsh)"
       eval "$(starship init zsh)"
+      eval "$(fzf --zsh)"
     '';
   };
 }

@@ -24,14 +24,13 @@
 
   services.system76-scheduler.enable = true;
   services.system76-scheduler.settings.cfsProfiles.enable = true;
-
-  services.auto-cpufreq = {
+  
+  services.tlp = {
     enable = true;
     settings = {
-      charger = {
-        governor = "performance";
-        turbo = "always";
-      };
+      CPU_BOOST_ON_AC = 1;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
     };
   };
 }

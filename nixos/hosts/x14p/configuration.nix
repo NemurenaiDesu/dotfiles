@@ -35,17 +35,27 @@
     vulkan-tools
   ];
 
-  services.auto-cpufreq = {
+  services.tlp = {
     enable = true;
+    pd.enable = true;
+
     settings = {
-      battery = {
-        governor = "powersave";
-        turbo = "never";
-      };
-      charger = {
-        governor = "performance";
-        turbo = "always";
-      };
+      TLP_AUTO_SWITCH = 2;
+
+      CPU_BOOST_ON_AC = 1;
+      # limit max cpu freq so it wont fry with active turbo (2100000 equals to 2.1 GHz)
+      # note: this value goes into /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq
+      CPU_SCALING_MAX_FREQ_ON_AC = 3500000;
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+
+      CPU_BOOST_ON_BAT = 0;
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+
+      CPU_BOOST_ON_SAV = 0;
+      CPU_SCALING_GOVERNOR_ON_SAV = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_SAV = "power";
     };
   };
 }

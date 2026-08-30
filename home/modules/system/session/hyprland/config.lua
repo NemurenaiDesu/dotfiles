@@ -3,11 +3,8 @@ hl.config({
         gaps_in = 2.500000,
         gaps_out = 5,
         border_size = 1,
-        resize_on_border = false,
 
         layout = "dwindle",
-
-        allow_tearing = true,
 
         col = {
             active_border = { colors = { "rgb(94E2D5)", "rgb(F38BA8)", "rgb(F9E2AF)" }, angle = 270 },
@@ -50,32 +47,25 @@ hl.config({
         touchpad = {
             clickfinger_behavior = true,
             disable_while_typing = true,
-            drag_lock = 1,
-            middle_button_emulation = true,
+            tap_and_drag = true,
             natural_scroll = true,
             scroll_factor = 0.250000,
-            tap_and_drag = true,
-            tap_to_click = true,
+            drag_lock = 1,
         },
     },
 
     decoration = {
+        rounding = 8,
+
+        dim_special = 0.6,
+
         blur = {
             size = 2,
             passes = 2,
-            enabled = true,
-            special = true,
-            new_optimizations = true,
+            enabled = false,
         },
 
-        rounding = 8,
-
-        active_opacity = 1.000000,
-        inactive_opacity = 1.000000,
-        fullscreen_opacity = 1.000000,
-
-        dim_inactive = false,
-        dim_strength = 0.100000,
+        shadow = { enabled = false },
     },
 
 

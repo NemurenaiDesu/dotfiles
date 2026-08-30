@@ -27,7 +27,7 @@ in
         "hyprland.start"
         (lib.generators.mkLuaInline ''
           function() 
-            hl.exec_cmd("uwsm app -- ${config.xdg.dataHome}/bin/battery-notifier 20 /sys/class/power_supply/BATT") 
+            hl.exec_cmd("uwsm app -t service -u app-battery-notifier.service -p Restart=always -- ${config.xdg.dataHome}/bin/battery-notifier 20 /sys/class/power_supply/BATT") 
           end
         '')
       ];
